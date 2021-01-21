@@ -78,7 +78,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
     return TextField(
       keyboardType: widget.keyboardType,
       maxLines: 1,
-      maxLength: 1,
+      maxLength: 2,
       focusNode: _listFocusNode[index],
       decoration: InputDecoration(
           border: (border ? null : InputBorder.none),
