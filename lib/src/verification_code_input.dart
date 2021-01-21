@@ -9,6 +9,7 @@ class VerificationCodeInput extends StatefulWidget {
   final BoxDecoration itemDecoration;
   final TextStyle textStyle;
   final bool autofocus;
+  final List<String> code;
   VerificationCodeInput(
       {Key key,
       this.onCompleted,
@@ -17,7 +18,8 @@ class VerificationCodeInput extends StatefulWidget {
       this.itemDecoration,
       this.itemSize = 50,
       this.textStyle = const TextStyle(fontSize: 25.0, color: Colors.black),
-      this.autofocus = true})
+      this.autofocus = true,
+      this.code})
       : assert(length > 0),
         assert(itemSize > 0),
         super(key: key);
@@ -36,10 +38,24 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
   @override
   void initState() {
     if (_listFocusNode.isEmpty) {
-      for (var i = 0; i < widget.length; i++) {
-        _listFocusNode.add(new FocusNode());
-        _listControllerText.add(new TextEditingController());
-        _code.add(' ');
+      if (widget.code.isNotEmpty) {
+        for (var i = 0; i < widget.length; i++) {
+          _listFocusNode.add(new FocusNode());
+          _listControllerText
+              .add(new TextEditingController(text: widget.code[i]));
+          _code.add(widget.code[i]);
+        }
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          widget.onCompleted(_getInputVerify());
+          FocusScope.of(context)
+              .requestFocus(_listFocusNode[widget.length - 1]);
+        });
+      } else {
+        for (var i = 0; i < widget.length; i++) {
+          _listFocusNode.add(new FocusNode());
+          _listControllerText.add(new TextEditingController());
+          _code.add(' ');
+        }
       }
     }
     super.initState();
@@ -62,7 +78,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
     return TextField(
       keyboardType: widget.keyboardType,
       maxLines: 1,
-      maxLength: 2,
+      maxLength: 1,
       focusNode: _listFocusNode[index],
       decoration: InputDecoration(
           border: (border ? null : InputBorder.none),
@@ -155,6 +171,7 @@ class _VerificationCodeInputState extends State<VerificationCodeInput> {
 
   @override
   Widget build(BuildContext context) {
+    print('kidr h haa ????');
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
