@@ -19,6 +19,7 @@ import'package:flutter_verification_code_input/flutter_verification_code_input.d
 
 ```dart
   VerificationCodeInput(
+  code: codeList // takes in list<String> initialise codeList in initstate for autofill
       keyboardType: TextInputType.number,
       length: 4,
       autofocus: true,
