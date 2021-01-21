@@ -7,7 +7,7 @@
 ```yaml
   flutter_verification_code_input:
     git:
-      url: git://github.com/tiny-express/flutter_verification_code_input
+      url: git://github.com/yashpalzala/flutter_verification_code_input
     version: ^0.1.2
 ```
 
@@ -19,6 +19,7 @@ import'package:flutter_verification_code_input/flutter_verification_code_input.d
 
 ```dart
   VerificationCodeInput(
+  code: codeList // takes in list<String> initialise codeList in initstate for autofill
       keyboardType: TextInputType.number,
       length: 4,
       autofocus: true,
